@@ -1,6 +1,8 @@
 JCBC Toolkit
 ============
 
+[![Build Status](https://travis-ci.org/daschl/jcbc-toolkit.svg?branch=master)](https://travis-ci.org/daschl/jcbc-toolkit)
+
 This program is a heavy work in progress, move on unless you want to learn some rust or desperately need this program for some reason.
 
 Usage
