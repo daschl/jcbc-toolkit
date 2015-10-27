@@ -38,3 +38,41 @@ impl Analyzer for MultiEnvAnalyzer {
     }
 
 }
+
+#[cfg(test)]
+mod tests {
+
+    use super::*;
+    use analyze::Analyzer;
+
+    #[test]
+    fn should_match_line() {
+        let mut analyzer = MultiEnvAnalyzer::new();
+
+        assert_eq!(0, analyzer.max_envs_found);
+        assert_eq!(0, analyzer.occurences);
+
+        let not_matching_line = "This is some log line which should not match.";
+        analyzer.parse(not_matching_line);
+
+        assert_eq!(0, analyzer.max_envs_found);
+        assert_eq!(0, analyzer.occurences);
+
+        let matching_line = "2015-10-27 19:37:23 WARN  CoreEnvironment:204 - More than 1 Couchbase \
+            Environments found (2), this can have severe impact on performance and stability. \
+            Reuse environments!";
+        analyzer.parse(matching_line);
+
+        assert_eq!(2, analyzer.max_envs_found);
+        assert_eq!(1, analyzer.occurences);
+
+        let another_matching_line = "2015-10-27 21:37:23 WARN  CoreEnvironment:204 - More than 1 Couchbase \
+            Environments found (3), this can have severe impact on performance and stability. \
+            Reuse environments!";
+        analyzer.parse(another_matching_line);
+
+        assert_eq!(3, analyzer.max_envs_found);
+        assert_eq!(2, analyzer.occurences);
+    }
+
+}
