@@ -22,6 +22,8 @@ If you encounter a weird panic, please run it like this and report an issue:
 RUST_BACKTRACE=1 cargo run mylogfile.log
 ```
 
+The actual binary is called `jt` and can be found under `target/debug/jt` or if built with `cargo build --release` under `target/release/jt`.
+
 Contributing
 ------------
 Source code quality is subpar right now, since I'm learning rust and dogfooding the project at the same time. There is lots of stuff which for sure can be cleaned up - feel free to help out.

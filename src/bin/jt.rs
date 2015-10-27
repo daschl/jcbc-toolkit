@@ -9,8 +9,9 @@ use std::env;
 
 use jcbc_toolkit::parse::Parser;
 use jcbc_toolkit::analyze::Analyzer;
-use jcbc_toolkit::analyze::MultiEnvAnalyzer;
+use jcbc_toolkit::analyze::multi_env::MultiEnvAnalyzer;
 
+#[cfg_attr(test, allow(dead_code))]
 fn main() {
 	let args = env::args().collect::<Vec<String>>();
 
@@ -35,6 +36,5 @@ fn main() {
 	parser.register_analyzer(Box::new(MultiEnvAnalyzer::new()));
 
 	parser.parse(reader.lines());
-
 	parser.print_results();
 }
