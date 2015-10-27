@@ -2,3 +2,6 @@
 name = "jcbc-toolkit"
 version = "0.1.0"
 authors = ["Michael Nitschinger <michael@nitschinger.at>"]
+
+[dependencies]
+regex = "0.1.41"
