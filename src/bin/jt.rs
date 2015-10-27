@@ -10,6 +10,7 @@ use std::env;
 use jcbc_toolkit::parse::Parser;
 use jcbc_toolkit::analyze::Analyzer;
 use jcbc_toolkit::analyze::multi_env::MultiEnvAnalyzer;
+use jcbc_toolkit::analyze::open_bucket::OpenBucketAnalyzer;
 
 #[cfg_attr(test, allow(dead_code))]
 fn main() {
@@ -34,6 +35,7 @@ fn main() {
 
 	let mut parser = Parser::new();
 	parser.register_analyzer(Box::new(MultiEnvAnalyzer::new()));
+	parser.register_analyzer(Box::new(OpenBucketAnalyzer::new()));
 
 	parser.parse(reader.lines());
 	parser.print_results();
