@@ -4,12 +4,17 @@ use analyze::Analyzer;
 pub struct MultiEnvAnalyzer {
     occurences: u8,
     max_envs_found: u8,
+    matcher_regex: Regex
 }
 
 impl MultiEnvAnalyzer {
 
     pub fn new() -> MultiEnvAnalyzer {
-        MultiEnvAnalyzer { max_envs_found: 0, occurences: 0 }
+        MultiEnvAnalyzer { 
+            max_envs_found: 0, 
+            occurences: 0, 
+            matcher_regex: Regex::new(r"More than 1 Couchbase Environments found \((\d+)\)").unwrap() 
+        }
     }
 
 }
@@ -17,12 +22,11 @@ impl MultiEnvAnalyzer {
 impl Analyzer for MultiEnvAnalyzer {
 
     fn parse(&mut self, line: &str) {
-        let re = Regex::new(r"More than 1 Couchbase Environments found \((\d+)\)").unwrap();
 
-        if re.is_match(line) {
+        if self.matcher_regex.is_match(line) {
             self.occurences = self.occurences + 1;
 
-            let caps = re.captures(line).unwrap();
+            let caps = self.matcher_regex.captures(line).unwrap();
             let num_found = caps.at(1).unwrap().parse::<u8>().unwrap();
 
             if num_found > self.max_envs_found {

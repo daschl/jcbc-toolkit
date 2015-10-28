@@ -4,12 +4,16 @@ use analyze::Analyzer;
 
 pub struct OpenBucketAnalyzer {
     found_buckets: HashMap<String, u32>,
+    matcher_regex: Regex
 }
 
 impl OpenBucketAnalyzer {
 
     pub fn new() -> OpenBucketAnalyzer {
-        OpenBucketAnalyzer { found_buckets: HashMap::new() }
+        OpenBucketAnalyzer { 
+            found_buckets: HashMap::new(), 
+            matcher_regex: Regex::new(r"Opened bucket ([0-9A-Za-z_-]+)").unwrap() 
+        }
     }
 
 }
@@ -17,11 +21,9 @@ impl OpenBucketAnalyzer {
 impl Analyzer for OpenBucketAnalyzer {
 
     fn parse(&mut self, line: &str) {
-        let re = Regex::new(r"Opened bucket ([0-9A-Za-z_-]+)").unwrap();
+        if self.matcher_regex.is_match(line) {
 
-        if re.is_match(line) {
-
-            let caps = re.captures(line).unwrap();
+            let caps = self.matcher_regex.captures(line).unwrap();
             let bucket_name = caps.at(1).unwrap();
 
             let counter = self.found_buckets.entry(bucket_name.to_string()).or_insert(0);
@@ -30,7 +32,7 @@ impl Analyzer for OpenBucketAnalyzer {
     }
 
     fn print_results(&self) {
-        println!("[MultiEnvAnalyzer]: TODO - print buckets and their open attempts");
+        println!("[OpenBucketAnalyzer]: TODO - print buckets and their open attempts");
     }
 
 }
