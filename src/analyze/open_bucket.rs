@@ -21,6 +21,10 @@ impl OpenBucketAnalyzer {
 impl Analyzer for OpenBucketAnalyzer {
 
     fn parse(&mut self, line: &str) {
+        if !line.contains("Opened bucket") {
+            return;
+        }
+
         if self.matcher_regex.is_match(line) {
 
             let caps = self.matcher_regex.captures(line).unwrap();

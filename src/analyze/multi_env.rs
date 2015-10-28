@@ -22,6 +22,9 @@ impl MultiEnvAnalyzer {
 impl Analyzer for MultiEnvAnalyzer {
 
     fn parse(&mut self, line: &str) {
+        if !line.contains("Couchbase Environments") {
+            return;
+        }
 
         if self.matcher_regex.is_match(line) {
             self.occurences = self.occurences + 1;

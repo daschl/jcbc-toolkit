@@ -8,6 +8,15 @@ pub struct Parser {
 
 impl Parser {
 
+    /// Constructs a new `Parser`
+    ///
+    /// Examples:
+    ///
+    /// ```
+    /// use jcbc_toolkit::parse::Parser;
+    ///
+    /// let parser = Parser::new();
+    /// ```
     pub fn new() -> Parser {
         Parser { analyzers: Vec::new() }
     }
