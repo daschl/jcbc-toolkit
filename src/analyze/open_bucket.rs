@@ -6,7 +6,7 @@ pub struct OpenBucketAnalyzer {
 	found_buckets: HashMap<String, u32>
 }
 
-impl<'a> OpenBucketAnalyzer {
+impl OpenBucketAnalyzer {
 
     pub fn new() -> OpenBucketAnalyzer {
         OpenBucketAnalyzer { found_buckets: HashMap::new() }
@@ -14,7 +14,7 @@ impl<'a> OpenBucketAnalyzer {
 
 }
 
-impl<'a> Analyzer for OpenBucketAnalyzer {
+impl Analyzer for OpenBucketAnalyzer {
 
     fn parse(&mut self, line: &str) {
         let re = Regex::new(r"Opened bucket ([0-9A-Za-z_-]+)").unwrap();
